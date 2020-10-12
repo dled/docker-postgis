@@ -16,4 +16,4 @@ services:
     restart: on-failure
     healthcheck:
       test: "exit 0"
-     condition: service_healthy
+      condition: service_healthy
