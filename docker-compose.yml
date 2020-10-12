@@ -1,14 +1,14 @@
 # docker-compose build
 version: '3.8'
 volumes:
-  postgis-data:
+  pgdata:
 
 services:
 
   db:
     image: kartoza/postgis:12.0
     volumes:
-      - postgis-data:/var/lib/postgresql
+      - pgdata:/var/lib/postgresql/data
     environment:
       # If you need to create multiple database you can add coma separated databases eg gis,data
       - POSTGRES_DB=gis
