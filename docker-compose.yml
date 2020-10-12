@@ -1,7 +1,6 @@
 # docker-compose build
 version: '2.1'
 volumes:
-  dbbackups:
   postgis-data:
 
 services:
@@ -10,7 +9,6 @@ services:
     image: kartoza/postgis:12.0
     volumes:
       - postgis-data:/var/lib/postgresql
-      - dbbackups:/backups
     environment:
       # If you need to create multiple database you can add coma separated databases eg gis,data
       - POSTGRES_DB=gis
@@ -24,20 +22,4 @@ services:
     restart: on-failure
     healthcheck:
       test: "exit 0"
-
-  dbbackups:
-    image: kartoza/pg-backup:12.0
-    hostname: pg-backups
-    volumes:
-      - dbbackups:/backups
-    environment:
-      - DUMPPREFIX=PG_db
-      - POSTGRES_USER=docker
-      - POSTGRES_PASS=docker
-      - POSTGRES_PORT=5432
-      - POSTGRES_HOST=db
-      - POSTGRES_DBNAME=gis
-    restart: on-failure
-    depends_on:
-      db:
-        condition: service_healthy
+     condition: service_healthy
